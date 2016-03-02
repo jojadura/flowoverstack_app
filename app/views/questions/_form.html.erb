@@ -1,0 +1,28 @@
+<div class="container">
+	<div class="row">
+		<div class="col-sm-6 col-sm-offset-2">
+			<h1><%= form_title %></h1>
+			<% if @question.errors.any? %>
+			  <div class="alert alert-danger">
+			    <ul>
+			    <% @question.errors.full_messages.each do |msg| %>
+			      <li><%= msg %></li>
+			    <% end %>
+			    </ul>
+			  </div>
+			<% end %>			
+
+			<%= form_for @question do |f| %>
+				<div class="form-group">
+					<%=  f.text_field :title, class: "form-control input-lg", placeholder: "Ingresa el titulo de la pregunta" %>
+				</div>
+				<div class="form-group">
+					<%=  f.text_area :body, class: "form-control input-lg", placeholder: "Ingresa la descripción de la pregunta" %>
+				</div>
+				<div>
+					<%= f.submit form_title, class: "btn btn-primary btn-lg" %> <%= link_to "Cancelar", questions_path, class: "btn btn-primary btn-lg" %>
+				</div>	
+			<% end %>
+		</div> <!-- .col-sm -->
+	</div> <!-- .row -->
+</div> <!-- .container -->
