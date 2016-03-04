@@ -1,8 +1,13 @@
 <div class="container">
 	<div class="row">
 		<div class="col-sm-8">
-			<span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>		
-			<span class="upvote-arrow"></span>	
+			
+			
+            <% if signed_in? %>
+                <%= link_to "Votar", question_votes_path(@question), method: :post %>                 
+            <% end %> 
+
+
 			<h1><%= @question.title %></h1>
 			<p><%= @question.body %></p>
 
@@ -38,6 +43,11 @@
             	<hr>
             	<%= markdown(question.body) %>
             <% end %>
+
+            <% if signed_in? %>
+                <%= link_to "Votar", votes_answer_path(@answer), method: :post %>      
+            <% end %> 
+
 
             <% if signed_in? %>
 	            <h3>Tu Respuesta</h3>

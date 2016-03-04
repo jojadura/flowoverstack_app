@@ -22,6 +22,7 @@ class QuestionsController < ApplicationController
     #Para el comentario, que pertenece a un post especifico.
     @comment = Comment.new
     @answer = Answer.new
+    @vote = Vote.new
   end
 
 
