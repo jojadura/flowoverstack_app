@@ -44,9 +44,6 @@
             	<%= markdown(question.body) %>
             <% end %>
 
-            <% if signed_in? %>
-                <%= link_to "Votar", votes_answer_path(@answer), method: :post %>      
-            <% end %> 
 
 
             <% if signed_in? %>
