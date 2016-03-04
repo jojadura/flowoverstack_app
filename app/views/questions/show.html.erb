@@ -1,0 +1,56 @@
+<div class="container">
+	<div class="row">
+		<div class="col-sm-8">
+			<span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>		
+			<span class="upvote-arrow"></span>	
+			<h1><%= @question.title %></h1>
+			<p><%= @question.body %></p>
+
+            <% @question.comments.each do |question| %>
+            	<hr>
+            	<%= markdown(question.body) %>
+            <% end %>
+
+
+            <% if signed_in? %>
+                <% if @comment.errors.any? %>
+                    <div class="alert alert-danger">
+                        <ul>
+                            <% @comment.errors.full_messages.each do |msg| %>
+                                <li><%= msg %></li>
+                            <% end %>
+                        </ul>
+                    </div>
+                <% end %>            
+                <%= form_for [@question, @comment] do |f| %>
+                    <div class="form-group">
+                        <%=  f.text_area :body, class: "form-control input-lg", placeholder: "Agrega un comentario" %>
+                    </div>
+                    <div>
+                        <%= f.submit "Comentar", class: "btn btn-primary" %>
+                        <%= f.hidden_field :user_id, :value => current_user.id%>
+                    </div>  
+                <% end %> 
+            <% end %> 
+
+            <h3><%= @question.answers.count %> Respuesta(s)</h3>
+            <% @question.answers.each do |question| %>
+            	<hr>
+            	<%= markdown(question.body) %>
+            <% end %>
+
+            <% if signed_in? %>
+	            <h3>Tu Respuesta</h3>
+                <%= form_for [@question, @answer] do |f| %>
+                    <div class="form-group">
+                        <%=  f.text_area :body, class: "form-control input-lg" %>
+                    </div>
+                    <div>
+                        <%= f.submit "Enviar Respuesta", class: "btn btn-primary" %>
+                        <%= f.hidden_field :user_id, :value => current_user.id%>
+                    </div>  
+                <% end %> 
+            <% end %>            
+		</div><!--.col -->
+	</div> <!--.row -->
+</div> <!--.container -->
