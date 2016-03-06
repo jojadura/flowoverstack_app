@@ -39,14 +39,13 @@
             <% end %> 
 
             <h3><%= @question.answers.count %> Respuesta(s)</h3>
-            <% @question.answers.each do |question| %>
+            <% @question.answers.each do |answer| %>
             	<hr>
-            	<%= markdown(question.body) %>
+            	<%= markdown(answer.body) %>
+                <% if signed_in? %>
+                    <%= link_to "Votar", votes_answer_path(answer), method: :post %>      
+                <% end %> 
             <% end %>
-
-            <% if signed_in? %>
-                <%= link_to "Votar", votes_answer_path(@answer), method: :post %>      
-            <% end %> 
 
 
             <% if signed_in? %>
