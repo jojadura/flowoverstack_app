@@ -4,7 +4,7 @@
 			
 			
             <% if signed_in? %>
-                <% if Vote.exists?(user_id: current_user.id,question_id: @question) %>
+                <% if @question.votes.exists?(user_id: current_user.id) %>
                     <%= link_to "Anular", question_votes_del_path(@question), method: :delete %>                    
                 <% else %>
                     <%= link_to "Votar", question_votes_path(@question), method: :post %>
@@ -33,7 +33,7 @@
                 <% end %>            
                 <%= form_for [@question, @comment] do |f| %>
                     <div class="form-group">
-                        <%=  f.text_area :body, class: "form-control input-lg", placeholder: "Agrega un comentario" %>
+                        <%=  f.text_area :body, class: "form-control input-lg", placeholder: "Comentar Pregunta" %>
                     </div>
                     <div>
                         <%= f.submit "Comentar", class: "btn btn-primary" %>
@@ -46,18 +46,25 @@
             <% @question.answers.each do |answer| %>
             	<hr>
             	<%= markdown(answer.body) %>
-                <% if signed_in? %>
-                    <%= link_to "Votar", votes_answer_path(answer), method: :post %>      
-                <% end %> 
+                <%= form_for [@question, @answer] do |f| %>
+                    <div class="comment">
+                        <%=  f.text_area :body, class: "form-control input-lg", placeholder: "Comentar Respuesta" %>
+                    </div>
+                    <div class="comment">
+                        <%= f.submit "Comentar Respuesta", class: "btn btn-primary" %>
+                        <%= f.hidden_field :user_id, :value => current_user.id%>
+                    </div>  
+                <% end %>                 
             <% end %>
 
-
             <% if signed_in? %>
+                <br>
 	            <h3>Tu Respuesta</h3>
                 <%= form_for [@question, @answer] do |f| %>
-                    <div class="form-group">
+                    <div>
                         <%=  f.text_area :body, class: "form-control input-lg" %>
                     </div>
+                    <br>
                     <div>
                         <%= f.submit "Enviar Respuesta", class: "btn btn-primary" %>
                         <%= f.hidden_field :user_id, :value => current_user.id%>
