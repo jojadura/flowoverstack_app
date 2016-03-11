@@ -21,8 +21,8 @@
       </thead>
         <% @questions.each do |question| %>
           <tr>
-            <td class="text-center"><h3>0</h3>Votos</td>
-            <td class="text-center"><h3>0</h3>Respuestas</td>
+            <td class="text-center"><h3><%= question.votes.count %></h3>Votos</td>
+            <td class="text-center"><h3><%= question.answers.count %></h3>Respuestas</td>
             <td class="text-left">
               <div id="body-questions">
                 <h4><%= link_to question.title, question %> </h4>

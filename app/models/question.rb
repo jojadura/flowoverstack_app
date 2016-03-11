@@ -19,4 +19,9 @@ class Question < ActiveRecord::Base
   validates :title, :presence => {:message => "no puede estar en blanco" }
   validates :body, :presence => {:message => "no puede estar en blanco" }
 
+#  def vote_on?(user)
+ #   votes.exists?(user: user)
+  #end
+
+
 end

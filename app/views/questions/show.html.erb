@@ -4,7 +4,11 @@
 			
 			
             <% if signed_in? %>
-                <%= link_to "Votar", question_votes_path(@question), method: :post %>                 
+                <% if Vote.exists?(user_id: current_user.id,question_id: @question) %>
+                    <%= link_to "Anular", question_votes_del_path(@question), method: :delete %>                    
+                <% else %>
+                    <%= link_to "Votar", question_votes_path(@question), method: :post %>
+                <% end %>
             <% end %> 
 
 
