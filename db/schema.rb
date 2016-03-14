@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160304143715) do
+ActiveRecord::Schema.define(version: 20160314001457) do
 
   create_table "answers", force: :cascade do |t|
     t.text     "body"
@@ -65,7 +65,7 @@ ActiveRecord::Schema.define(version: 20160304143715) do
 
   create_table "votes", force: :cascade do |t|
     t.integer  "voteable_id"
-    t.integer  "voteable_type"
+    t.string   "voteable_type"
     t.integer  "user_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false

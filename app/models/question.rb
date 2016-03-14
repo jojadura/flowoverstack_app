@@ -12,17 +12,13 @@
 
 class Question < ActiveRecord::Base
   belongs_to :user
-  #has_many :comments
+  has_many :comments
   has_many :answers
   has_many :votes, as: :voteable
-  has_many :comments, as: :commentable
+  #has_many :comments, as: :commentable
 
   validates :title, :presence => {:message => "no puede estar en blanco" }
   validates :body, :presence => {:message => "no puede estar en blanco" }
-
-#  def vote_on?(user)
- #   votes.exists?(user: user)
-  #end
 
 
 end

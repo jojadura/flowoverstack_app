@@ -13,7 +13,7 @@ class QuestionsController < ApplicationController
     if @question.save
       redirect_to questions_path, notice: "La Pregunta fue creada exitosamente."
     else
-      render :new   # se ubica de nuevo en la vista que se indique
+      render :new   
     end		
   end
 

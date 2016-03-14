@@ -23,8 +23,4 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  def can_vote_on?(question)
-    Question.votes(self).include?(question)
-  end
-
 end

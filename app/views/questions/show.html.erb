@@ -45,7 +45,8 @@
             <h3><%= @question.answers.count %> Respuesta(s)</h3>
             <% @question.answers.each do |answer| %>
             	<hr>
-            	<%= markdown(answer.body) %>
+                <%= answer.body %>
+                <%= link_to "Votar", votes_answer_path(answer), method: :post %>
                 <%= form_for [@question, @answer] do |f| %>
                     <div class="comment">
                         <%=  f.text_area :body, class: "form-control input-lg", placeholder: "Comentar Respuesta" %>
