@@ -1,6 +1,12 @@
 class QuestionsController < ApplicationController
+  
   def index
   	@questions = Question.all.order("created_at DESC")
+    if params[:search]
+      @questions = Question.search(params[:search]).order("created_at DESC")
+    else
+      @questions = Question.order("created_at DESC")
+    end    
   end
 
   def new

@@ -5,6 +5,7 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 </head>
 <body>
@@ -30,17 +31,26 @@
                <li><%= link_to "Ingresar", new_user_session_path %></li>
                <li><%= link_to "Registrarse", new_user_registration_path %></li>
             <% end %>   
+            <li>
+           <!-- Buscar Preguntas -->           
+           <%= form_tag(questions_path, :method => "get", class: "navbar-form navbar-right", id: "search-form") do %>   
+                <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Buscar" %>
+            <% end %>    
+            </li>
           </ul>
         </div><!-- .collapse -->        
        </div> <!-- .container -->
     </nav>
   </header>
-    <!-- End Header  -->
+    <!-- End Header  -->    
     
   <% if flash[:notice] %>
     <div class="alert alert-info"> <%= flash[:notice] %> </div>
   <% end %>
   <div class="content">
+    <% if signed_in? %>
+      <center>Usuario: <strong><%= current_user.email %></strong></center>
+    <% end %>        
     <%= yield %>
   </div>
   

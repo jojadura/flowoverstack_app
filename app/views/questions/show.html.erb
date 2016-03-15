@@ -1,25 +1,38 @@
 <div class="container">
 	<div class="row">
 		<div class="col-sm-8">
-			
-			
-            <% if signed_in? %>
-                <% if @question.votes.exists?(user_id: current_user.id) %>
-                    <%= link_to "Anular", question_votes_del_path(@question), method: :delete %>                    
-                <% else %>
-                    <%= link_to "Votar", question_votes_path(@question), method: :post %>
-                <% end %>
-            <% end %> 
+            <div id="question-title">
+                <h1><%= @question.title %></h1>
+            </div>			                    
+            <div class="question-up">
+                <% if signed_in? %>
+                    <% if @question.votes.exists?(user_id: current_user.id) %>
+                        <br>
+                        <div id="vote-color">
+                            <%= @question.votes.count %>
+                        </div>                    
+                        <%= link_to '<i class="fa fa-sort-desc fa-3x"></i>'.html_safe, question_votes_del_path(@question), method: :delete %> 
+                    <% else %>
+                        <br>
+                        <div id="vote-color">
+                            <%= @question.votes.count %>
+                        </div>
+                        <%= link_to '<i class="fa fa-sort-asc fa-3x"></i>'.html_safe, question_votes_path(@question), method: :post %> 
+                    <% end %>
+                <% end %>                
+            </div>        
 
+            <div class="question-up">
+                <div id="question-content">
+                    <strong><%= @question.body %></strong>                    
+                </div>
+            </div>            
 
-			<h1><%= @question.title %></h1>
-			<p><%= @question.body %></p>
 
             <% @question.comments.each do |question| %>
             	<hr>
             	<%= markdown(question.body) %>
             <% end %>
-
 
             <% if signed_in? %>
                 <% if @comment.errors.any? %>
@@ -45,17 +58,32 @@
             <h3><%= @question.answers.count %> Respuesta(s)</h3>
             <% @question.answers.each do |answer| %>
             	<hr>
-                <%= answer.body %>
-                <%= link_to "Votar", votes_answer_path(answer), method: :post %>
-                <%= form_for [@question, @answer] do |f| %>
-                    <div class="comment">
-                        <%=  f.text_area :body, class: "form-control input-lg", placeholder: "Comentar Respuesta" %>
-                    </div>
-                    <div class="comment">
-                        <%= f.submit "Comentar Respuesta", class: "btn btn-primary" %>
-                        <%= f.hidden_field :user_id, :value => current_user.id%>
-                    </div>  
-                <% end %>                 
+                <div id="vote-color">
+                    <%= answer.votes.count %>
+                </div>                    
+
+                <% if signed_in? %>
+                    <% if answer.votes.exists?(user_id: current_user.id) %>
+                        <%= link_to '<i class="fa fa-sort-desc fa-3x"></i>'.html_safe, votes_answer_del_path(answer), method: :delete %>                    
+                    <% else %>
+                        <%= link_to '<i class="fa fa-sort-asc fa-3x"></i>'.html_safe, votes_answer_path(answer), method: :post %>
+                    <% end %>
+                    <%= answer.body %>
+                    <%= form_for [@question, @answer] do |f| %>
+                        <div class="comment">
+                            <%=  f.text_area :body, class: "form-control input-lg", placeholder: "Comentar Respuesta" %>
+                        </div>
+                        <% if signed_in? %>
+                            <div class="comment">
+                                <%= f.submit "Comentar Respuesta", class: "btn btn-primary" %>
+                                <%= f.hidden_field :user_id, :value => current_user.id%>
+                            </div>  
+                        <% end %>                 
+                    <% end %>                 
+                <% else %>
+                    <%= link_to '<i class="fa fa-sort-asc fa-3x"></i>'.html_safe, new_user_session_path %>                    
+                    <%= answer.body %>
+                <% end %>                             
             <% end %>
 
             <% if signed_in? %>

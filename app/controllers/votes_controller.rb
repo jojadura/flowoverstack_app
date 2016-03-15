@@ -1,24 +1,25 @@
 class VotesController < ApplicationController
 
-    before_action :load_vot
+    before_action :load_votable
 
     def create
-        @vote = @question.votes.create(user_id: current_user.id)
-       	redirect_to question_path
+        @votable.votes.create(user_id: current_user.id)
+       	redirect_to question_path(@path)
     end
 
     def destroy
-        @question.votes.where(user: current_user).take.try(:destroy)
-	    redirect_to question_path
+        @votable.votes.where(user: current_user).take.try(:destroy)
+	    redirect_to question_path(@path)
     end
 
     private 
-        def load_vot
+        def load_votable            
              if params[:question_id]
-                @question = Question.find(params[:question_id])
+                @votable = Question.find(params[:question_id])
+                @path = @votable
             else
-                @question = Answer.find(params[:id])
+                @votable = Answer.find(params[:answer_id])
+                @path = Question.find(@votable.question_id)
             end 
         end
-
 end

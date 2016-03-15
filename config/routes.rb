@@ -9,7 +9,8 @@ Rails.application.routes.draw do
     delete 'votes', to: 'votes#destroy', as: 'votes_del'
   end
 
-  post 'votes/:id', to: 'votes#create', as: 'votes_answer'  
+  post 'votes/:answer_id', to: 'votes#create', as: 'votes_answer'  
+  delete 'votes/:answer_id', to: 'votes#destroy', as: 'votes_answer_del'
 
   devise_for :users
 end
