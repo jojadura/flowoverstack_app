@@ -12,5 +12,7 @@ Rails.application.routes.draw do
   post 'votes/:answer_id', to: 'votes#create', as: 'votes_answer'  
   delete 'votes/:answer_id', to: 'votes#destroy', as: 'votes_answer_del'
 
+  post 'comments/:answer_id', to: 'comments#create', as: 'comments_answer'  
+
   devise_for :users
 end

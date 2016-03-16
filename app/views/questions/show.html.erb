@@ -69,7 +69,7 @@
                         <%= link_to '<i class="fa fa-sort-asc fa-3x"></i>'.html_safe, votes_answer_path(answer), method: :post %>
                     <% end %>
                     <%= answer.body %>
-                    <%= form_for [@question, @answer] do |f| %>
+                    <%= form_for [@question, @comment] do |f| %>
                         <div class="comment">
                             <%=  f.text_area :body, class: "form-control input-lg", placeholder: "Comentar Respuesta" %>
                         </div>
@@ -91,7 +91,7 @@
 	            <h3>Tu Respuesta</h3>
                 <%= form_for [@question, @answer] do |f| %>
                     <div>
-                        <%=  f.text_area :body, class: "form-control input-lg" %>
+                        <%=  f.text_area :body, class: "form-control input-lg", placeholder: "Respuesta"  %>
                     </div>
                     <br>
                     <div>
