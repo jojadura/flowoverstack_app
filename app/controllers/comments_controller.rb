@@ -5,7 +5,7 @@ class CommentsController < ApplicationController
     def create
         @commentable.comments.new(comment_params)
         if @commentable.save      
-        	redirect_to @question
+        	redirect_to question_path(@path)
         else
           @commentable = Question.find(params[:question_id])
           render "questions/show"
@@ -16,8 +16,10 @@ class CommentsController < ApplicationController
         def load_commentable            
              if params[:question_id]
                 @commentable = Question.find(params[:question_id])
-                @path = @votable
+                p "msj Question"
+                @path = @commentable
             else
+                p "msj Answer"
                 @commentable = Answer.find(params[:answer_id])
                 @path = Question.find(@commentable.question_id)
             end 

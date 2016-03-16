@@ -22,7 +22,7 @@ class Question < ActiveRecord::Base
 
   
   validates :title, presence: true, uniqueness: true
-  validates :content, presence: true
+
  
  
   def self.search(query)

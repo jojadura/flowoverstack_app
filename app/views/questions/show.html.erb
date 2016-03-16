@@ -57,10 +57,14 @@
 
             <h3><%= @question.answers.count %> Respuesta(s)</h3>
             <% @question.answers.each do |answer| %>
-            	<hr>
                 <div id="vote-color">
                     <%= answer.votes.count %>
                 </div>                    
+
+                <% @question.comments.each do |question| %>
+                    <hr>
+                    <%= markdown(question.body) %>
+                <% end %>
 
                 <% if signed_in? %>
                     <% if answer.votes.exists?(user_id: current_user.id) %>
@@ -69,7 +73,7 @@
                         <%= link_to '<i class="fa fa-sort-asc fa-3x"></i>'.html_safe, votes_answer_path(answer), method: :post %>
                     <% end %>
                     <%= answer.body %>
-                    <%= form_for [@question, @comment] do |f| %>
+                    <%= form_for [answer, @comment] do |f| %>
                         <div class="comment">
                             <%=  f.text_area :body, class: "form-control input-lg", placeholder: "Comentar Respuesta" %>
                         </div>
