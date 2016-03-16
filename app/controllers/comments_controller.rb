@@ -16,10 +16,8 @@ class CommentsController < ApplicationController
         def load_commentable            
              if params[:question_id]
                 @commentable = Question.find(params[:question_id])
-                p "msj Question"
                 @path = @commentable
             else
-                p "msj Answer"
                 @commentable = Answer.find(params[:answer_id])
                 @path = Question.find(@commentable.question_id)
             end 
