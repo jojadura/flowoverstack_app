@@ -61,10 +61,6 @@
                     <%= answer.votes.count %>
                 </div>                    
 
-                <% answer.comments.each do |comment| %>
-                    <hr>
-                    <%= markdown(comment.body) %>
-                <% end %>
 
                 <% if signed_in? %>
                     <% if answer.votes.exists?(user_id: current_user.id) %>
@@ -73,6 +69,11 @@
                         <%= link_to '<i class="fa fa-sort-asc fa-3x"></i>'.html_safe, votes_answer_path(answer), method: :post %>
                     <% end %>
                     <%= answer.body %>
+                    <% answer.comments.each do |comment| %>
+                        <hr>
+                        <%= markdown(comment.body) %>
+                    <% end %>
+                    
                     <%= form_for [answer, @comment] do |f| %>
                         <div class="comment">
                             <%=  f.text_area :body, class: "form-control input-lg", placeholder: "Comentar Respuesta" %>
