@@ -3,24 +3,24 @@ class CommentsController < ApplicationController
     before_action :load_commentable
 
     def create
-        @commentable.comments.new(comment_params)
-        if @commentable.save      
+        @question.comments.new(comment_params)
+        if @question.save      
         	redirect_to question_path(@path)
         else
-          @commentable = Question.find(params[:question_id])
+          @answer = Answer.new  # Esta var, es para poder usar en la vista @answer.errors.any?, para las validaciones.
+          @question = Question.find(params[:question_id])
           render "questions/show"
-          #render controler::action => "show" , :question_id => @path
         end   
     end
 
     private 
         def load_commentable            
              if params[:question_id]
-                @commentable = Question.find(params[:question_id])
-                @path = @commentable
+                @question = Question.find(params[:question_id])
+                @path = @question
             else
-                @commentable = Answer.find(params[:answer_id])
-                @path = Question.find(@commentable.question_id)
+                @question = Answer.find(params[:answer_id])
+                @path = Question.find(@question.question_id)
             end 
         end
 
