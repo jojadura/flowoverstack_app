@@ -8,6 +8,7 @@ class CommentsController < ApplicationController
         	redirect_to question_path(@path)
         else
           @answer = Answer.new  # Esta var, es para poder usar en la vista @answer.errors.any?, para las validaciones.
+          @comment = Comment.new 
           @question = Question.find(params[:question_id])
           render "questions/show"
         end   

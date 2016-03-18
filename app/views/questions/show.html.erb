@@ -35,6 +35,13 @@
             	<hr>
             	<%= markdown(question.body) %>
             <% end %>
+            <% if @comment.errors.any? %>
+              <div class="alert alert-danger">
+                <ul>
+                <% @comment.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+                <% end %>
+            <% end %>
 
             <% if signed_in? %>
                 <%= form_for [@question,@question.comments.new] do |f| %>
