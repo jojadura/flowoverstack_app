@@ -9,6 +9,7 @@ class CommentsController < ApplicationController
         else
           @commentable = Question.find(params[:question_id])
           render "questions/show"
+          #render controler::action => "show" , :question_id => @path
         end   
     end
 

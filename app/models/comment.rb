@@ -14,4 +14,6 @@
 class Comment < ActiveRecord::Base
   belongs_to :user
   belongs_to :commentable, polymorphic: true
+
+  validates :body, :presence => {:message => "no puede estar en blanco" }
 end

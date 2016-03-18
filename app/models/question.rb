@@ -20,9 +20,6 @@ class Question < ActiveRecord::Base
   validates :title, :presence => {:message => "no puede estar en blanco" }
   validates :body, :presence => {:message => "no puede estar en blanco" }
 
-  
-  validates :title, presence: true, uniqueness: true
-
  
  
   def self.search(query)

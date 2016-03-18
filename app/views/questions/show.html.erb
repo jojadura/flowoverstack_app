@@ -3,7 +3,9 @@
 		<div class="col-sm-8">
             <div id="question-title">
                 <h1><%= @question.title %></h1>
-            </div>			                    
+                <%= p "msj2" %>
+                <%= p @question %>
+            </div>	
             <div class="question-up">
                 <% if signed_in? %>
                     <% if @question.votes.exists?(user_id: current_user.id) %>
@@ -35,22 +37,14 @@
             <% end %>
 
             <% if signed_in? %>
-                <% if @comment.errors.any? %>
-                    <div class="alert alert-danger">
-                        <ul>
-                            <% @comment.errors.full_messages.each do |msg| %>
-                                <li><%= msg %></li>
-                            <% end %>
-                        </ul>
-                    </div>
-                <% end %>            
-                <%= form_for [@question, @comment] do |f| %>
+                <%= form_for [@question,@question.comments.new] do |f| %>
                     <div class="form-group">
                         <%=  f.text_area :body, class: "form-control input-lg", placeholder: "Comentar Pregunta" %>
                     </div>
                     <div>
                         <%= f.submit "Comentar", class: "btn btn-primary" %>
-                        <%= f.hidden_field :user_id, :value => current_user.id%>
+                        <%= f.hidden_field :user_id, :value => current_user.id %>
+                        <%= f.hidden_field :question_id, :value => @question.id %>
                     </div>  
                 <% end %> 
             <% end %> 
@@ -60,7 +54,6 @@
                 <div id="vote-color">
                     <%= answer.votes.count %>
                 </div>                    
-
 
                 <% if signed_in? %>
                     <% if answer.votes.exists?(user_id: current_user.id) %>
@@ -74,7 +67,7 @@
                         <%= markdown(comment.body) %>
                     <% end %>
                     
-                    <%= form_for [answer, @comment] do |f| %>
+                    <%= form_for [answer,answer.comments.new] do |f| %>
                         <div class="comment">
                             <%=  f.text_area :body, class: "form-control input-lg", placeholder: "Comentar Respuesta" %>
                         </div>
@@ -94,6 +87,16 @@
             <% if signed_in? %>
                 <br>
 	            <h3>Tu Respuesta</h3>
+                <% if @answer.errors.any? %>
+                  <div class="alert alert-danger">
+                    <ul>
+                    <% @answer.errors.full_messages.each do |msg| %>
+                      <li><%= msg %></li>
+                <% end %>
+                    </ul>
+                  </div>
+                <% end %>           
+
                 <%= form_for [@question, @answer] do |f| %>
                     <div>
                         <%=  f.text_area :body, class: "form-control input-lg", placeholder: "Respuesta"  %>

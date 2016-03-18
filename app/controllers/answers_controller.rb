@@ -1,7 +1,7 @@
 class AnswersController < ApplicationController
 
     def create
-        @question = Question.find(params[:question_id])  #rake routes muestra /posts/:post_id/comments, de ahi sale :post_id, que es el valor que va por la URL.    
+        @question = Question.find(params[:question_id])  
         @answer = @question.answers.new(answer_params)
         if @answer.save      
         	redirect_to @question
