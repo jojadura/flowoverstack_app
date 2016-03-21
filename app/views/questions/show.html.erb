@@ -35,11 +35,13 @@
             	<hr>
             	<%= markdown(question.body) %>
             <% end %>
-            <% if @comment.errors.any? %>
-              <div class="alert alert-danger">
-                <ul>
-                <% @comment.errors.full_messages.each do |msg| %>
-                  <li><%= msg %></li>
+            <% if @comment %>
+                <% if @comment.errors.any? %>
+                  <div class="alert alert-danger">
+                    <ul>
+                    <% @comment.errors.full_messages.each do |msg| %>
+                      <li><%= msg %></li>
+                    <% end %>
                 <% end %>
             <% end %>
 
