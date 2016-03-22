@@ -5,7 +5,7 @@ class CommentsController < ApplicationController
     def create
         @comment = @commentable.comments.new(comment_params)      
         if @comment.save      
-        	redirect_to question_path(@path)
+        	redirect_to question_path(@question)
         else 
           @answer = Answer.new  # Esta var, es para poder usar en la vista @answer.errors.any?, para las validaciones.
           render "questions/show"
